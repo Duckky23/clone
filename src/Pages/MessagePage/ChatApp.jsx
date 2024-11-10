@@ -1,8 +1,11 @@
+// ChatApp.jsx
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
 // Kết nối tới server
-const socket = io.connect('http://localhost:4000');
+const socket = io('http://localhost:4000', {
+  withCredentials: true,
+});
 
 const ChatApp = () => {
   const [message, setMessage] = useState('');
@@ -13,6 +16,11 @@ const ChatApp = () => {
     socket.on('receive_message', (data) => {
       setMessageList((prevMessages) => [...prevMessages, data]);
     });
+
+    // Xóa sự kiện khi component bị huỷ
+    return () => {
+      socket.off('receive_message');
+    };
   }, []);
 
   // Gửi tin nhắn tới server
