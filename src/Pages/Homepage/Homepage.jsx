@@ -13,6 +13,7 @@ const Homepage = () => {
     <React.Fragment>
       <Layout style={{ padding: '16px 24px 24px', alignItems: 'center' }}>
           <StatusInput />
+          
           <StoryList />
           <Post />
           <SuggestedFriends />
